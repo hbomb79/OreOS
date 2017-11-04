@@ -1,7 +1,7 @@
 os.loadAPI("/System/API/v0.1.0-beta.1")
 
 _G.OSVERSION = "0.2.0 Alpha"
-_G.OSNAME = "VistaOS"
+_G.OSNAME = "OreOS"
 _G.OSFULL = OSNAME.." "..OSVERSION
 _G.GETTIME = function()
   local time = os.time()
@@ -35,7 +35,7 @@ function about()
   aboutWindow = Manager:addNode(Window(5, 5, 35, 12):set{title = "About", backgroundColor = colors.lightGray, minWidth = 35, minHeight = 12, id = "aboutWindow"})
   aboutWindow:addNode(Label("-About-"):set{X = "${#aboutWindow}.width / 2 - #self.text / 2", Y = 1})
   aboutWindow:addNode(Label("Free Space: "..fs.getFreeSpace("/").." Bytes"):set{X = 1, Y = 3})
-  aboutWindow:addNode(Label("VistaOS Version: "..OSFULL):set{X = 1, Y = 4})
+  aboutWindow:addNode(Label("OreOS Version: "..OSFULL):set{X = 1, Y = 4})
 end
 
 function stMenu()
