@@ -1,6 +1,6 @@
 local x, y = term.getSize() -- Gets terminal size
 
-if x < 51 and y < 19 then -- Implimented to fix bugs with the VistaOS terminal app
+if x < 51 and y < 19 then -- Implimented to fix bugs with the OreOS terminal app
   term.clear()
   term.setCursorPos(1, 1)
   shell.run("/rom/programs/shell")
@@ -11,7 +11,7 @@ os.loadAPI("/Boot/bootcfg")
 
 function main()
   local Manager = Application():set { terminatable = false, backgroundColour = 32768, colour = colours.gray }
-  Manager:importFromTML( "/Boot/VistaBootTML.tml" )
+  Manager:importFromTML( "/Boot/OreBootTML.tml" )
 
   Manager:addNode( Button(bootcfg.bootOptions[1], 18, 4, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption1"})
   local boot1 = Manager:query "#bOption1"
@@ -85,7 +85,7 @@ if not ok then
   term.setTextColor(colors.white)
   term.clear()
   term.setCursorPos(1,1)
-  print("A problem has been detected and VistaOS has been shut down to prevent damage to your Advanced Computer")
+  print("A problem has been detected and OreOS has been shut down to prevent damage to your Advanced Computer")
   print("")
   print("Error Info: "..err)
   term.setCursorPos(1, 18)
