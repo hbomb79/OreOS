@@ -1,0 +1,41 @@
+os.loadAPI("/System/API/v0.1.0-beta.1")
+
+local Manager = Application():set{terminatable = true, backgroundColour = colors.white, color = colors.gray}
+Manager:importFromTML("/System/TML/login.tml")
+settings.load("/System/settings")
+
+Manager:query "#user":on("trigger", function(self, value)
+  cUser = settings.get("user_name")
+  if value == cUser then
+    Manager:query "#status".result[1].color = colors.black
+    Manager:query "#status".result[1].text = "Press enter to check password and to continue"
+    Manager:query "#userPass".result[1].text = "Password"
+    Manager:addNode(Input():set{placeholder = "Password"; width = 15; height = 1; X = "$52 / 2 - 5 / 2"; Y = 6; backgroundColor = 128; color = 1; id = "pass", mask="*"})
+    Manager:query "#pass":on("trigger", function(self, value)
+    cPass = settings.get("pass_word")
+    if value == cPass then
+      shell.run("/System/Main")
+    else
+      Manager:query "#status".result[1].color = colors.red
+      Manager:query "#status".result[1].text = "Incorrect Password"
+    end
+    end)
+  else
+    Manager:query "#status".result[1].color = colors.red
+    Manager:query "#status".result[1].text = "Incorrect Username"
+  end
+end)
+
+--[[
+pass = Manager:query "#pass"
+pass:on("trigger", function(self, value)
+  cPass = settings.get("pass_word")
+  if value == cPass then
+    correctPass = true
+  else
+    correctPass = false
+    pass = nil
+  end
+end) ]]
+
+Manager:start()

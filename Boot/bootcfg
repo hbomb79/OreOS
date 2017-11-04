@@ -1,0 +1,24 @@
+-- VistaBoot Config
+  bootOptions = { -- Options must be 14 characters long, no more, no less
+    "VistaOS       ",
+    "CraftOS       ",
+    "              ",
+    "              ",
+    "              ",
+    "              ",
+    "              ",
+    "              ",
+    "              "
+  }
+
+  bootLocations = {
+    "/Boot/VistaOS",
+    "/Boot/CraftOS",
+    "/Boot/VistaBoot",
+    "/Boot/VistaBoot",
+    "/Boot/VistaBoot",
+    "/Boot/VistaBoot",
+    "/Boot/VistaBoot",
+    "/Boot/VistaBoot",
+    "/Boot/VistaBoot"
+  }

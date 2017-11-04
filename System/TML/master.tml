@@ -1,0 +1,3 @@
+
+    <Pane Y=1 X=4 width="$parent.width - 3" height = 1 backgroundColor="white" />
+    <Button text=" @ " Y=1 X=1 width="$#self.text" height = 1 backgroundColor="white" color="gray" activeBackgroundColor="lightGray" id="start"/>

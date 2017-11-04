@@ -1,0 +1,79 @@
+os.loadAPI("/System/API/v0.1.0-beta.1")
+
+_G.OSVERSION = "0.2.0 Alpha"
+_G.OSNAME = "VistaOS"
+_G.OSFULL = OSNAME.." "..OSVERSION
+_G.GETTIME = function()
+  local time = os.time()
+  local formattedTime = textutils.formatTime(time, false)
+  return formattedTime
+end
+
+local Manager = Application():set {terminatable = true, backgroundColour = colors.lightBlue, color = colors.gray}
+Manager:importFromTML("/System/TML/master.tml")
+
+function newTerminal()
+  termWindow = Manager:addNode(Window(5, 5, 27, 12):set{title = "Terminal", id = "term", backgroundColour = colors.black, minWidth = 27, minHeight = 12} )
+  termWindow:addNode(Terminal(1, 1):set{id = "shell", width = "${#term}.width - 2", height = "${#term}.height - 3"} )
+  Manager:query "Terminal#shell":set{chunk = function() select(1, loadfile "/rom/programs/shell")() end}
+end
+
+function removeStart()
+  Manager:removeNode("menuLabel")
+  Manager:removeNode("sett")
+  Manager:removeNode("about")
+  Manager:removeNode("power")
+  Manager:removeNode("tbutton")
+  Manager:removeNode("config")
+end
+
+function config()
+  shell.run("/System/Programs/settings")
+end
+
+function about()
+  aboutWindow = Manager:addNode(Window(5, 5, 35, 12):set{title = "About", backgroundColor = colors.lightGray, minWidth = 35, minHeight = 12, id = "aboutWindow"})
+  aboutWindow:addNode(Label("-About-"):set{X = "${#aboutWindow}.width / 2 - #self.text / 2", Y = 1})
+  aboutWindow:addNode(Label("Free Space: "..fs.getFreeSpace("/").." Bytes"):set{X = 1, Y = 3})
+  aboutWindow:addNode(Label("VistaOS Version: "..OSFULL):set{X = 1, Y = 4})
+end
+
+function stMenu()
+  if st == false then
+    st = true
+    Manager:addNode(Label("--Menu-- ", 1, 2):set{backgroundColor = colors.lightGray, color = colors.black, id = "menuLabel"})
+    Manager:addNode(Button("  Term   ", 1, 3, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "tbutton"} )
+    local tbutton = Manager:query "#tbutton"
+    tbutton:on("trigger", function(self)
+      removeStart()
+      newTerminal()
+    end)
+    Manager:addNode(Button("  Power  ", 1, 4, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "power" } )
+    local powOff = Manager:query "#power"
+    powOff:on("trigger", function(self)
+      os.shutdown()
+    end)
+    Manager:addNode(Button("  About  ", 1, 5, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "about"})
+    local abt = Manager:query "#about"
+    abt:on("trigger", function(self)
+      removeStart()
+      about()
+    end)
+    Manager:addNode(Button(" Config  ", 1, 6, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "config" } )
+    local cfg = Manager:query "#config"
+    cfg:on("trigger", function(self)
+      removeStart()
+      config()
+    end)
+  else
+    st = false
+    removeStart()
+  end
+end
+
+local start = Manager:query "#start"
+start:on("trigger", function(button)
+  stMenu()
+end)
+
+Manager:start()

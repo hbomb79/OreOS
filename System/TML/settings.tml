@@ -1,0 +1,4 @@
+
+    <Pane Y=1 X=1 width="$parent.width" height = 1 backgroundColor="white" />
+    <Pane Y=2 X=1 width="$parent.width" height = 3 backgroundColor="lightGray" />
+    <Label Y=3 X=2 text = "Settings" backgroundColor="lightGray" color="black" />

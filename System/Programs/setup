@@ -1,0 +1,35 @@
+os.loadAPI("/System/API/v0.1.0-beta.1")
+
+local Manager = Application():set {terminatable = true, backgroundColour = colors.white, color = colors.gray}
+Manager:importFromTML("/System/TML/setup.tml")
+
+function initialize()
+  settings.unset("edit.autocomplete")
+  settings.unset("shell.autocomplete")
+  settings.unset("list.show_hidden")
+  settings.unset("shell.allow_disk_startup")
+  settings.unset("bios.use_multishell")
+  settings.unset("shell.allow_startup")
+  settings.unset("lua.autocomplete")
+  settings.save("/System/settings")
+  shell.run("/Boot/VistaOS")
+end
+
+Manager:query "#user":on("trigger", function(self, value, selectedValue)
+  settings.set("user_name", value)
+  settings.save("/System/settings")
+end)
+
+pass = Manager:query "#pass"
+pass:on("trigger", function(self, value, selectedValue)
+  settings.set("pass_word", value)
+  settings.save("/System/settings")
+end)
+
+begin = Manager:query "#begin"
+begin:on("trigger", function (self)
+  Manager:stop()
+  initialize()
+end)
+
+Manager:start()

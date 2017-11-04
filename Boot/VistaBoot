@@ -1,0 +1,95 @@
+local x, y = term.getSize() -- Gets terminal size
+
+if x < 51 and y < 19 then -- Implimented to fix bugs with the VistaOS terminal app
+  term.clear()
+  term.setCursorPos(1, 1)
+  shell.run("/rom/programs/shell")
+end
+
+os.loadAPI("/System/API/v0.1.0-beta.1")
+os.loadAPI("/Boot/bootcfg")
+
+function main()
+  local Manager = Application():set { terminatable = false, backgroundColour = 32768, colour = colours.gray }
+  Manager:importFromTML( "/Boot/VistaBootTML.tml" )
+
+  Manager:addNode( Button(bootcfg.bootOptions[1], 18, 4, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption1"})
+  local boot1 = Manager:query "#bOption1"
+  boot1:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[1])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[2], 18, 5, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption2"})
+  local boot2 = Manager:query "#bOption2"
+  boot2:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[2])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[3], 18, 6, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption3"})
+  local boot3 = Manager:query "#bOption3"
+  boot3:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[3])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[4], 18, 7, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption4"})
+  local boot4 = Manager:query "#bOption4"
+  boot4:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[4])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[5], 18, 8, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption5"})
+  local boot5 = Manager:query "#bOption5"
+  boot5:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[5])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[6], 18, 9, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption6"})
+  local boot6 = Manager:query "#bOption6"
+  boot6:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[6])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[7], 18, 10, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption7"})
+  local boot7 = Manager:query "#bOption7"
+  boot7:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[7])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[8], 18, 11, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption8"})
+  local boot8 = Manager:query "#bOption8"
+  boot8:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[8])
+  end)
+
+  Manager:addNode( Button(bootcfg.bootOptions[9], 18, 12, 14):set{ backgroundColor = colors.gray, color = colors.white, id = "bOption9"})
+  local boot9 = Manager:query "#bOption9"
+  boot9:on( "trigger", function( self )
+  Manager:stop()
+  shell.run(bootcfg.bootLocations[9])
+  end)
+
+  Manager:start()
+end
+
+local ok, err = pcall(main)
+if not ok then
+  term.setBackgroundColor(colors.blue)
+  term.setTextColor(colors.white)
+  term.clear()
+  term.setCursorPos(1,1)
+  print("A problem has been detected and VistaOS has been shut down to prevent damage to your Advanced Computer")
+  print("")
+  print("Error Info: "..err)
+  term.setCursorPos(1, 18)
+  print("Press any key to reboot")
+  os.pullEvent("key")
+  os.reboot()
+end

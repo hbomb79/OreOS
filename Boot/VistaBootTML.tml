@@ -1,0 +1,4 @@
+
+  <Label X = 19 Y = 1 text = "-VistaBoot-" color = 1 />
+  <Label X = 12 Y = 2 text = "Please select a boot image" color = 1 />
+  <Label X = 10 Y = 19 text = "Click the OS you wish to boot" color = 1 />
