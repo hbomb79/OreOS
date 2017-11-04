@@ -12,7 +12,7 @@ function initialize()
   settings.unset("shell.allow_startup")
   settings.unset("lua.autocomplete")
   settings.save("/System/settings")
-  shell.run("/Boot/VistaOS")
+  shell.run("/Boot/OreOS")
 end
 
 Manager:query "#user":on("trigger", function(self, value, selectedValue)
