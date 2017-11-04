@@ -2,7 +2,7 @@
 term.setBackgroundColor(colors.black)
 term.setTextColor(colors.white)
 term.setCursorPos(1, 1)
-print("VistaOS "..ver)
+print("VistaOS "..ver) -- VistaOS was its original name
 print("Starting Up...")
 textutils.slowPrint("############")
 shell.run("/.System/.Main") ]] -- Previous Startup, now defunct
@@ -15,7 +15,7 @@ os.loadAPI("/System/API/PrintAPI")
 term.setBackgroundColor(colors.lightGray)
 term.clear()
 term.setTextColor(colors.white)
-PrintAPI.printc("VistaOS", math.floor(h/2) - 4)
+PrintAPI.printc(" OreOS ", math.floor(h/2) - 4)
 PrintAPI.printc("Starting Up... ", math.floor(h/2) - 2)
 term.setBackgroundColor(colors.white)
 PrintAPI.slowPrintc("                 ", math.floor(h/2) + 0)
