@@ -1,6 +1,6 @@
--- VistaBoot Config
+-- OreBoot Config
   bootOptions = { -- Options must be 14 characters long, no more, no less
-    "VistaOS       ",
+    "OreOS       ",
     "CraftOS       ",
     "              ",
     "              ",
@@ -12,13 +12,13 @@
   }
 
   bootLocations = {
-    "/Boot/VistaOS",
+    "/Boot/OreOS",
     "/Boot/CraftOS",
-    "/Boot/VistaBoot",
-    "/Boot/VistaBoot",
-    "/Boot/VistaBoot",
-    "/Boot/VistaBoot",
-    "/Boot/VistaBoot",
-    "/Boot/VistaBoot",
-    "/Boot/VistaBoot"
+    "/Boot/OreBoot",
+    "/Boot/OreBoot",
+    "/Boot/OreBoot",
+    "/Boot/OreBoot",
+    "/Boot/OreBoot",
+    "/Boot/OreBoot",
+    "/Boot/OreBoot"
   }
