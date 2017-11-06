@@ -1,0 +1,38 @@
+os.loadAPI("/System/API/v0.1.0-beta.1")
+os.loadAPI("/System/API/sha256")
+
+local Manager = Application():set {terminatable = true, backgroundColour = colors.white, color = colors.gray}
+Manager:importFromTML("/System/TML/setup.tml")
+fs.delete("/System/settings")
+
+function initialize()
+  settings.unset("edit.autocomplete")
+  settings.unset("shell.autocomplete")
+  settings.unset("list.show_hidden")
+  settings.unset("shell.allow_disk_startup")
+  settings.unset("bios.use_multishell")
+  settings.unset("shell.allow_startup")
+  settings.unset("lua.autocomplete")
+  settings.save("/System/settings")
+  shell.run("/Boot/OreOS")
+end
+
+Manager:query "#user":on("trigger", function(self, value, selectedValue)
+  sha256User = sha256.sha256(value)
+  settings.set("user_name", sha256User)
+  settings.save("/System/settings")
+end)
+
+Manager:query "#pass":on("trigger", function(self, value, selectedValue)
+  sha256Pass = sha256.sha256(value)
+  settings.set("pass_word", sha256Pass)
+  settings.save("/System/settings")
+end)
+
+begin = Manager:query "#begin"
+begin:on("trigger", function (self)
+  Manager:stop()
+  initialize()
+end)
+
+Manager:start()
