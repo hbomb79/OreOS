@@ -25,6 +25,7 @@ function removeStart()
   Manager:removeNode("power")
   Manager:removeNode("tbutton")
   Manager:removeNode("config")
+  Manager:removeNode("stdGUI")
 end
 
 function config()
@@ -64,6 +65,11 @@ function stMenu()
     cfg:on("trigger", function(self)
       removeStart()
       config()
+    end)
+    Manager:addNode(Button(" StdGUI  ", 1, 7, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "stdGUI" } )
+    local stg = Manager:query "#stdGUI"
+    stg:on("trigger", function(self)
+      shell.run("/System/Programs/stdgui")
     end)
   else
     st = false
