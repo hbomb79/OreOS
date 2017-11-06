@@ -1,9 +1,0 @@
-
-  <Label text = " --OreOS Setup-- " X = "$52 / 2 - #self.text / 2" Y = 2 width = "$#self.text" height = 1 />
-  <Label text = "Enter a username and password" width = "$#self.text" height = 1 X = "$52 / 2 - #self.text / 2" Y = 4 />
-  <Label text = "Username: " width = "$#self.text" height = 1 X = "$52 / 2 - 25 / 2" Y = 6 />
-  <Input placeholder = "Username" width = 15 height = 1 X = "$52 / 2 - 5 / 2" Y = 6 backgroundColor = 128 color = 1 id = "user" />
-  <Label text = "Password: " width = "$#self.text" height = 1 X = "$52 / 2 - 25 / 2" Y = 8 />
-  <Input placeholder = "Password" width = 15 height = 1 X = "$52 / 2 - 5 / 2" Y = 8 backgroundColor = 128 color = 1 id = "pass" />
-  <Button text = "Begin" width = "$#self.text" height = 1 X = 46 Y = 18 backgroundColor = 128 color = 1 activeBackgroundColor = 256 id = "begin" />
-  <Label text = "Press enter for each box to apply information" width = "$#self.text" height = 1 X = 1 Y = 19 />
