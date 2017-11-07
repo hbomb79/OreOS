@@ -19,11 +19,13 @@ Manager:query "#user":on("trigger", function(self, value)
     else
       Manager:query "#status".result[1].color = colors.red
       Manager:query "#status".result[1].text = "Incorrect Password"
+      Manager:query "#pass".result[1].value = ""
     end
     end)
   else
     Manager:query "#status".result[1].color = colors.red
     Manager:query "#status".result[1].text = "Incorrect Username"
+    Manager:query "#user".result[1].value = ""
   end
 end)
 
