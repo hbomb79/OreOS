@@ -1,4 +1,4 @@
-if fs.exists("/README.md") then -- Removes github files.
-  fs.delete("/README.md")
+if fs.exists("/README.md") then -- Checks for README.md file from github
+  fs.delete("/README.md") -- If the file exists it will be deleted.
 end
-shell.run("/Boot/OreBoot") -- runs the boot manager.
+shell.run("/Boot/OreBoot") -- runs the boot manager
