@@ -13,14 +13,14 @@ Manager:query "#user":on("trigger", function(self, value)
     Manager:query "#userPass".result[1].text = "Password"
     Manager:addNode(Input():set{placeholder = "Password"; width = 15; height = 1; X = "$52 / 2 - 5 / 2"; Y = 6; backgroundColor = 128; color = 1; id = "pass", mask="*"})
     Manager:query "#pass":on("trigger", function(self, value)
-    cPass = settings.get("pass_word")
-    if sha256.sha256(value) == cPass then
-      shell.run("/System/Main")
-    else
-      Manager:query "#status".result[1].color = colors.red
-      Manager:query "#status".result[1].text = "Incorrect Password"
-      Manager:query "#pass".result[1].value = ""
-    end
+      cPass = settings.get("pass_word")
+      if sha256.sha256(value) == cPass then
+        shell.run("/System/Main")
+      else
+        Manager:query "#status".result[1].color = colors.red
+        Manager:query "#status".result[1].text = "Incorrect Password"
+        Manager:query "#pass".result[1].value = ""
+      end
     end)
   else
     Manager:query "#status".result[1].color = colors.red
