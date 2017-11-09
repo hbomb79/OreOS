@@ -1,5 +1,33 @@
-
-    <Pane Y=1 X=1 width="$parent.width" height = 1 backgroundColor="white" />
-    <Pane Y=2 X=1 width="$parent.width" height = 3 backgroundColor="lightGray" />
-    <Pane X=1 Y=5 width=7 height="$parent.height - 4" backgroundColor="lightGray" />
-    <Label Y=3 X=2 text = "Settings" backgroundColor="lightGray" color="black" />
+<TabbedPageContainer Z=1 X=1 Y=1 width="$application.width" height="$application.height" id="mainContainer" tabBackgroundColour = gray tabColour=white selectedTabColour=white selectedTabBackgroundColour=black>
+  <Page id="gener" name="General" xScrollAllowed="false" position=1>
+    <Pane Y=1 X=1 width="$parent.width" height = 3 backgroundColor="lightGray" />
+    <Label Y=2 X=2 text="Settings -- General" backgroundColor="lightGray" color="black" />
+  </Page>
+  <Page id="desig" name="Design" xScrollAllowed="false" position=2>
+    <Pane Y=1 X=1 width="$parent.width" height = 3 backgroundColor="lightGray" />
+    <Label Y=2 X=2 text = "Settings -- Design" backgroundColor="lightGray" color="black" />
+    <Label Y=4 X=2 text = "Wallpaper Color:" backgroundColor="white" color="black"/>
+    <Dropdown X=3 Y=5 width=25 maxHeight=7 Z=2 id="bgCol">
+      <Option value="1">White</Option>
+      <Option value="2">Orange</Option>
+      <Option value="3">Magenta</Option>
+      <Option value="4">Light Blue</Option>
+      <Option value="5">Yellow</Option>
+      <Option value="6">Lime</Option>
+      <Option value="7">Pink</Option>
+      <Option value="8">Gray</Option>
+      <Option value="9">Light Gray</Option>
+      <Option value="10">Cyan</Option>
+      <Option value="11">Purple</Option>
+      <Option value="12">Blue</Option>
+      <Option value="13">Brown</Option>
+      <Option value="14">Green</Option>
+      <Option value="15">Red</Option>
+      <Option value="16">Black</Option>
+    </Dropdown>
+  </Page>
+  <Page id="accnt" name="Account" xScrollAllowed="false" position=3>
+    <Pane Y=1 X=1 width="$parent.width" height = 3 backgroundColor="lightGray" />
+    <Label Y=2 X=2 text = "Settings -- Account" backgroundColor="lightGray" color="black" />
+  </Page>
+</TabbedPageContainer>
