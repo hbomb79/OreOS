@@ -20,6 +20,12 @@ function initialize()
   shell.run("/Boot/OreOS")
 end
 
+Manager:addNode(Button("X"):set{Y = 1, X = "$parent.width", width = 1, height = 1, backgroundColour = colors.gray, color = colors.white, activeBackgroundColor = colors.lightGray, id = "Close"})
+local Close = Manager:query "#Close"
+Close:on("trigger", function(self)
+  shell.run("/System/Main")
+end)
+
 local bgColor = Manager:query "#bgCol"
 bgColor:on("change", function(self)
   print(self:getSelectedValue())
