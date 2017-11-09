@@ -1,4 +1,4 @@
 if fs.exists("/README.md") then
   fs.delete("/README.md")
 end
-shell.run("/Boot/OreBoot")
+shell.run("/Boot/OreBoot") -- runs the boot manager.
