@@ -1,13 +1,31 @@
 os.loadAPI("/System/API/v0.1.0-beta.1")
 
-local Manager = Application():set {terminatable = true, backgroundColour = colors.black, color = colors.gray}
+local Manager = Application():set {terminatable = true, backgroundColour = colors.white, color = colors.gray}
 Manager:importFromTML("/System/TML/settings.tml")
+settings.load("/System/settings")
 
 function initialize()
-    Manager:addNode(Button("X"):set{Y = 1, X = "$parent.width", width = 1, height = 1, backgroundColour = colors.white, color = colors.gray, activeBackgroundColor = colors.lightGray, id = "Close"})
+    pages = Manager:query "#mainContainer".result[1]
+    pages:selectPage("gener")
+    Manager:addNode(Button("X"):set{Y = 1, X = "$parent.width", width = 1, height = 1, backgroundColour = colors.gray, color = colors.white, activeBackgroundColor = colors.lightGray, id = "Close"})
     local Close = Manager:query "#Close"
     Close:on("trigger", function(self)
       shell.run("/System/Main")
+    end)
+    local Account = Manager:query "#account"
+    local Design = Manager:query "#design"
+    local General = Manager:query "#general"
+    local bgColor = Manager:query "#bgCol"
+    bgColor:on("change", function(self)
+      print(self:getSelectedValue())
+      if self:getSelectedValue() == "1" then
+        settings.set("design_bgColor", 1)
+        settings.save("/System/settings")
+      else
+        colorValue = 2^(self:getSelectedValue()-1)
+        settings.set("design_bgColor", colorValue)
+        settings.save("/System/settings")
+      end
     end)
     -- Manager:addNode(Label(tostring(textutils.formatTime(os.time(), false))):set{X = 1, Y=1, backgroundColour = colors.white}) Displays time, but dosen't change it regularly
 end
