@@ -9,7 +9,10 @@ _G.GETTIME = function()
   return formattedTime
 end
 
-local Manager = Application():set {terminatable = true, backgroundColour = colors.lightBlue, color = colors.gray}
+settings.load("/System/settings")
+_G.wallpaperColor = settings.get("design_bgColor")
+
+local Manager = Application():set {terminatable = true, backgroundColour = wallpaperColor, color = colors.gray}
 Manager:importFromTML("/System/TML/master.tml")
 
 function newTerminal()
