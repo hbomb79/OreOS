@@ -12,9 +12,6 @@ function initialize()
     Close:on("trigger", function(self)
       shell.run("/System/Main")
     end)
-    local Account = Manager:query "#account"
-    local Design = Manager:query "#design"
-    local General = Manager:query "#general"
     local bgColor = Manager:query "#bgCol"
     bgColor:on("change", function(self)
       print(self:getSelectedValue())
