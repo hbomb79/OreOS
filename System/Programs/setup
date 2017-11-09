@@ -3,7 +3,10 @@ os.loadAPI("/System/API/sha256")
 
 local Manager = Application():set {terminatable = true, backgroundColour = colors.white, color = colors.gray}
 Manager:importFromTML("/System/TML/setup.tml")
+
 fs.delete("/System/settings")
+pages = Manager:query "#mainContainer".result[1]
+pages:selectPage("Login")
 
 function initialize()
   settings.unset("edit.autocomplete")
@@ -16,6 +19,25 @@ function initialize()
   settings.save("/System/settings")
   shell.run("/Boot/OreOS")
 end
+
+Manager:addNode(Button("X"):set{Y = 1, X = "$parent.width", width = 1, height = 1, backgroundColour = colors.gray, color = colors.white, activeBackgroundColor = colors.lightGray, id = "Close"})
+local Close = Manager:query "#Close"
+Close:on("trigger", function(self)
+  shell.run("/System/Main")
+end)
+
+local bgColor = Manager:query "#bgCol"
+bgColor:on("change", function(self)
+  print(self:getSelectedValue())
+  if self:getSelectedValue() == "1" then
+    settings.set("design_bgColor", 1)
+    settings.save("/System/settings")
+  else
+    colorValue = 2^(self:getSelectedValue()-1)
+    settings.set("design_bgColor", colorValue)
+    settings.save("/System/settings")
+  end
+end)
 
 Manager:query "#user":on("trigger", function(self, value, selectedValue)
   sha256User = sha256.sha256(value)
