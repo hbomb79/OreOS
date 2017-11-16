@@ -29,6 +29,7 @@ function removeStart()
   Manager:removeNode("tbutton")
   Manager:removeNode("config")
   Manager:removeNode("stdGUI")
+  Manager:removeNode("ink")
 end
 
 function config()
@@ -63,16 +64,21 @@ function stMenu()
       removeStart()
       about()
     end)
-    Manager:addNode(Button(" Config  ", 1, 6, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "config" } )
+    Manager:addNode(Button("  Config ", 1, 6, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "config" } )
     local cfg = Manager:query "#config"
     cfg:on("trigger", function(self)
       removeStart()
       config()
     end)
-    Manager:addNode(Button(" StdGUI  ", 1, 7, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "stdGUI" } )
+    Manager:addNode(Button("  StdGUI ", 1, 7, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "stdGUI" } )
     local stg = Manager:query "#stdGUI"
     stg:on("trigger", function(self)
       shell.run("/System/Programs/stdgui")
+    end)
+    Manager:addNode(Button("  Ink    ", 1, 8, 9, 1):set{backgroundColor = colors.white, color = colors.black, activeBackgroundColor = colors.lightGray, id = "ink" } )
+    local inkLaunch = Manager:query "#ink"
+    inkLaunch:on("trigger", function(self)
+      shell.run("/System/Programs/ink")
     end)
   else
     st = false
