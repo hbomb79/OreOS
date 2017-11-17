@@ -1,4 +1,4 @@
-os.loadAPI("/System/API/v0.1.0-beta.1")
+os.loadAPI("/.tpm/packages/Titanium/v0.1.0-beta.1")
 os.loadAPI("/System/API/sha256")
 
 local Manager = Application():set {terminatable = true, backgroundColour = colors.white, color = colors.gray}

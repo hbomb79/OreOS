@@ -1,4 +1,4 @@
-os.loadAPI("/System/API/v0.1.0-beta.1")
+os.loadAPI("/.tpm/packages/Titanium/v0.1.0-beta.1")
 
 _G.OSVERSION = "1.0 Beta"
 _G.OSNAME = "OreOS"
