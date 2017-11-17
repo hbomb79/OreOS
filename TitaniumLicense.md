@@ -1,17 +1,13 @@
-Titanium License File
+# Titanium License File
 
-At the time of writing, all source code used in Titanium is open source under the MIT license.
+At the time of writing, *all* source code used in Titanium is open source under the MIT license.
 
 This essentially means that the code can be used however you wish as long as my license (and therefor the license of any work I adapted) is included with my code.
 
-
-Titanium source
-
+### Titanium source
 All Titanium source is written by Harry Felton unless otherwise stated, the below describes what you can do with my code under the conditions given:
 
-
-The MIT License (MIT)
-
+##### The MIT License (MIT)
 Copyright (c) 2016 Harry Felton
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,12 +28,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+### Tween Easing Library
+Titanium's Tweening system is custom, however the easing functions it uses are not. These functions can be found in the Titanium initialization file (`/src/scripts/Titanium.lua`).
 
-Tween Easing Library
-
-Titanium's Tweening system is custom, however the easing functions it uses are not. These functions can be found in the Titanium initialization file (/src/scripts/Titanium.lua).
-
-The easing functions are modified versions of Enrique García Cota, Yuichi Tateno, Emmanuel Oga tween library (according to their license). As per their license, it is included below
+The easing functions are modified versions of *Enrique García Cota, Yuichi Tateno, Emmanuel Oga* tween library (according to their license). As per their license, it is included below
 
 MIT LICENSE
 
