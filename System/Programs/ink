@@ -38,7 +38,7 @@ local getNames = peripheral.getNames or function()
 			local isWireless = false
 			if not pcall(function()isWireless = peripheral.call(sSide, 'isWireless') end) then
 				isWireless = true
-			end     
+			end
 			if peripheral.getType( sSide ) == "modem" and not isWireless then
 				local tRemote = peripheral.call( sSide, "getNamesRemote" )
 				for n,sName in ipairs( tRemote ) do
@@ -87,7 +87,7 @@ Peripheral = {
 				if _type == 'modem' then
 					if not pcall(function()isWireless = peripheral.call(sSide, 'isWireless') end) then
 						isWireless = true
-					end     
+					end
 					if isWireless then
 						_type = 'wireless_modem'
 						name = 'W '..name
@@ -276,7 +276,7 @@ if OneOS and OneOS.Clipboard then
 end
 
 Drawing = {
-	
+
 	Screen = {
 		Width = _w,
 		Height = _h
@@ -285,7 +285,7 @@ Drawing = {
 	DrawCharacters = function (x, y, characters, textColour,bgColour)
 		Drawing.WriteStringToBuffer(x, y, characters, textColour, bgColour)
 	end,
-	
+
 	DrawBlankArea = function (x, y, w, h, colour)
 		Drawing.DrawArea (x, y, w, h, " ", 1, colour)
 	end,
@@ -345,11 +345,11 @@ Drawing = {
 	        local file = _open(path, "r")
 	        local sLine = file:read()
 	        local num = 1
-	        while sLine do  
+	        while sLine do
 	                table.insert(image, num, {})
 	                table.insert(image.text, num, {})
 	                table.insert(image.textcol, num, {})
-	                                            
+
 	                --As we're no longer 1-1, we keep track of what index to write to
 	                local writeIndex = 1
 	                --Tells us if we've hit a 30 or 31 (BG and FG respectively)- next char specifies the curr colour
@@ -512,7 +512,7 @@ end
 
 Events = {}
 
-Button = {
+Bttn = {
 	X = 1,
 	Y = 1,
 	Width = 0,
@@ -592,7 +592,7 @@ TextBox = {
 		return self.Parent:AbsolutePosition()
 	end,
 
-	Draw = function(self)		
+	Draw = function(self)
 		local pos = GetAbsolutePosition(self)
 		Drawing.DrawBlankArea(pos.X, pos.Y, self.Width, self.Height, self.BackgroundColour)
 		local text = self.TextInput.Value
@@ -606,7 +606,7 @@ TextBox = {
 				Current.CursorPos = {pos.X + 1 + self.TextInput.CursorPos, pos.Y}
 			end
 		end
-		
+
 		if #tostring(text) == 0 then
 			Drawing.DrawCharacters(pos.X + 1, pos.Y, self.Placeholder, colours.lightGrey, self.BackgroundColour)
 		else
@@ -614,7 +614,7 @@ TextBox = {
 		end
 
 		term.setCursorBlink(true)
-		
+
 		Current.CursorColour = self.TextColour
 	end,
 
@@ -679,7 +679,7 @@ TextInput = {
 			self.Value = string.sub(self.Value, 1, self.CursorPos + newLineAdjust) .. str .. string.sub( self.Value, self.CursorPos + 1  + newLineAdjust)
 			self.CursorPos = self.CursorPos + 1
 		end
-		
+
 		self.Change(key)
 	end,
 
@@ -710,7 +710,7 @@ TextInput = {
 				self.Value = string.sub(self.Value, 1, self.CursorPos ) .. '\n' .. string.sub( self.Value, self.CursorPos + 1 )
 				self.CursorPos = self.CursorPos + 1
 			end
-			self.Change(key)		
+			self.Change(key)
 		elseif key == keys.left then
 			-- Left
 			if self.CursorPos > 0 then
@@ -718,15 +718,15 @@ TextInput = {
 				self.CursorPos = self.CursorPos - 1 - colShift
 				self.Change(key)
 			end
-			
+
 		elseif key == keys.right then
-			-- Right				
+			-- Right
 			if self.CursorPos < string.len(self.Value) then
 				local colShift = FindColours(string.sub( self.Value, self.CursorPos+1, self.CursorPos+1))
 				self.CursorPos = self.CursorPos + 1 + colShift
 				self.Change(key)
 			end
-		
+
 		elseif key == keys.backspace then
 			-- Backspace
 			if self.IsDocument and Current.Selection then
@@ -749,7 +749,7 @@ TextInput = {
 				self:Extract(true)
 				self.Change(key)
 			elseif self.CursorPos < string.len(self.Value) then
-				self.Value = string.sub( self.Value, 1, self.CursorPos ) .. string.sub( self.Value, self.CursorPos + 2 )				
+				self.Value = string.sub( self.Value, 1, self.CursorPos ) .. string.sub( self.Value, self.CursorPos + 2 )
 				self.Change(key)
 			end
 		elseif key == keys["end"] then
@@ -860,7 +860,7 @@ Menu = {
 		elseif key == keys.q then
 			return 'Q'
 		else
-			return '?'		
+			return '?'
 		end
 	end,
 
@@ -898,7 +898,7 @@ Menu = {
 		if removeTop then
 			new.Height = new.Height - 1
 		end
-		
+
 		if y < 1 then
 			y = 1
 		end
@@ -966,8 +966,8 @@ MenuBar = {
 		--Drawing.DrawArea(self.X - 1, self.Y, 1, self.Height, "|", UIColours.ToolbarText, UIColours.Background)
 
 		Drawing.DrawBlankArea(self.X, self.Y, self.Width, self.Height, colours.grey)
-		for i, button in ipairs(self.MenuBarItems) do
-			button:Draw()
+		for i, Bttn in ipairs(self.MenuBarItems) do
+			Bttn:Draw()
 		end
 	end,
 
@@ -1046,7 +1046,7 @@ Document = {
                 end
                 if space:find('\n') then
                     lines[#lines] = lines[#lines] .. word
-                    
+
                     space = space:gsub('\n', function()
                             table.insert(lines, '')
                             return ''
@@ -1105,8 +1105,8 @@ Document = {
 
 	ScrollToCursor = function(self)
 		self:CalculateCursorPos()
-		if Current.CursorPos and 
-			(Current.CursorPos[2] > Drawing.Screen.Height 
+		if Current.CursorPos and
+			(Current.CursorPos[2] > Drawing.Screen.Height
 			or Current.CursorPos[2] < 2) then
 			self.ScrollBar:DoScroll(Current.CursorPos[2] - Drawing.Screen.Height)
 		end
@@ -1142,7 +1142,7 @@ Document = {
 		new.X = (Drawing.Screen.Width - (new.PageSize.Width + 2*(Page.MarginX)))/2
 		new.Y = 2
 		new.TextInput = TextInput:Initialise(text, function()
-			new:ScrollToCursor() 
+			new:ScrollToCursor()
 			Current.Modified = true
 			Draw()
 		end, false, true)
@@ -1478,13 +1478,13 @@ end
 
 function LoadMenuBar()
 	Current.MenuBar = MenuBar:Initialise({
-		Button:Initialise(1, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
+		Bttn:Initialise(1, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
 			if toggle then
 				Menu:New(1, 2, {
 					{
 						Title = "New...",
 						Click = function()
-							Current.Document = Document:Initialise('')							
+							Current.Document = Document:Initialise('')
 						end,
 						Keys = {
 							keys.leftCtrl,
@@ -1548,15 +1548,15 @@ function LoadMenuBar()
 						Click = function()
 
 						end
-					}	
+					}
 			]]--
 				}, self, true)
 			else
 				Current.Menu = nil
 			end
-			return true 
+			return true
 		end, 'File', colours.lightGrey, false),
-		Button:Initialise(7, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
+		Bttn:Initialise(7, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
 			if not self.Toggle then
 				Menu:New(7, 2, {
 			--[[
@@ -1575,7 +1575,7 @@ function LoadMenuBar()
 					{
 						Title = 'Redo',
 						Click = function()
-							
+
 						end,
 						Keys = {
 							keys.leftCtrl,
@@ -1631,7 +1631,7 @@ function LoadMenuBar()
 						end
 					},
 					{
-						Separator = true,	
+						Separator = true,
 					},
 					{
 						Title = 'Select All',
@@ -1650,20 +1650,20 @@ function LoadMenuBar()
 			else
 				Current.Menu = nil
 			end
-			return true 
+			return true
 		end, 'Edit', colours.lightGrey, false)
 	})
 end
 
 function LoadMenuBar()
 	Current.MenuBar = MenuBar:Initialise({
-		Button:Initialise(1, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
+		Bttn:Initialise(1, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
 			if toggle then
 				Menu:New(1, 2, {
 					{
 						Title = "New...",
 						Click = function()
-							Current.Document = Document:Initialise('')							
+							Current.Document = Document:Initialise('')
 						end,
 						Keys = {
 							keys.leftCtrl,
@@ -1733,15 +1733,15 @@ function LoadMenuBar()
 						Click = function()
 
 						end
-					}	
+					}
 			]]--
 				}, self, true)
 			else
 				Current.Menu = nil
 			end
-			return true 
+			return true
 		end, 'File', colours.lightGrey, false),
-		Button:Initialise(7, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
+		Bttn:Initialise(7, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
 			if not self.Toggle then
 				Menu:New(7, 2, {
 			--[[
@@ -1760,7 +1760,7 @@ function LoadMenuBar()
 					{
 						Title = 'Redo',
 						Click = function()
-							
+
 						end,
 						Keys = {
 							keys.leftCtrl,
@@ -1816,7 +1816,7 @@ function LoadMenuBar()
 						end
 					},
 					{
-						Separator = true,	
+						Separator = true,
 					},
 					{
 						Title = 'Select All',
@@ -1835,9 +1835,9 @@ function LoadMenuBar()
 			else
 				Current.Menu = nil
 			end
-			return true 
+			return true
 		end, 'Edit', colours.lightGrey, false),
-		Button:Initialise(13, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
+		Bttn:Initialise(13, 1, nil, nil, colours.grey, Current.MenuBar, function(self, side, x, y, toggle)
 			if not self.Toggle then
 				Menu:New(13, 2, {
 					{
@@ -1984,7 +1984,7 @@ function LoadMenuBar()
 			else
 				Current.Menu = nil
 			end
-			return true 
+			return true
 		end, 'Colour', colours.lightGrey, false)
 	})
 end
@@ -2019,7 +2019,7 @@ function Initialise(arg)
 	EventRegister('char', HandleKey)
 	EventRegister('timer', Timer)
 	EventRegister('terminate', function(event) if Close() then error( "Terminated", 0 ) end end)
-	
+
 	LoadMenuBar()
 
 	--Current.Document = Document:Initialise('abcdefghijklmnopqrtuvwxy')--'Hello everybody!')
@@ -2109,7 +2109,7 @@ function CheckKeyboardShortcut(key)
 		end
 		shortcuts[keys.a] = function() Current.Selection = {1, #Current.Document.TextInput.Value:gsub('\n','')} end
 	end
-							
+
 	if shortcuts[key] then
 		shortcuts[key]()
 		Draw()
@@ -2137,7 +2137,7 @@ function DoClick(object, side, x, y, drag)
 	obj.Height = object.Height
 	if object and CheckClick(obj, x, y) then
 		return object:Click(side, x - object.X + 1, y - object.Y + 1, drag)
-	end	
+	end
 end
 
 --[[
@@ -2177,13 +2177,13 @@ function TryClick(event, side, x, y, drag)
 		if DoClick(object, side, x, y, drag) then
 			Draw()
 			return
-		end		
+		end
 	end
 	Draw()
 end
 
 function Scroll(event, direction, x, y)
-	if Current.Window and Current.Window.OpenButton then
+	if Current.Window and Current.Window.OpenBttn then
 		Current.Document.Scroll = Current.Document.Scroll + direction
 		if Current.Window.Scroll < 0 then
 			Current.Window.Scroll = 0
@@ -2277,11 +2277,11 @@ function PrintDocument()
 	end
 
 	if Peripheral.GetPeripheral('printer') == nil then
-		ButtonDialougeWindow:Initialise('No Printer Found', 'Please place a printer next to your computer. Ensure you also insert dye (left slot) and paper (top slots)', 'Ok', nil, function(window, ok)
+		BttnDialougeWindow:Initialise('No Printer Found', 'Please place a printer next to your computer. Ensure you also insert dye (left slot) and paper (top slots)', 'Ok', nil, function(window, ok)
 			window:Close()
 		end):Show()
 	elseif not acknowledgedColour and FindColours(Current.Document.TextInput.Value) ~= 0 then
-		ButtonDialougeWindow:Initialise('Important', 'Due to the way printers work, you can\'t print in more than one colour. The dye you use will be the colour of the text.', 'Ok', nil, function(window, ok)
+		BttnDialougeWindow:Initialise('Important', 'Due to the way printers work, you can\'t print in more than one colour. The dye you use will be the colour of the text.', 'Ok', nil, function(window, ok)
 			acknowledgedColour = true
 			window:Close()
 			doPrint()
@@ -2308,7 +2308,7 @@ function SaveDocument()
 			end
 			Current.Modified = false
 		else
-			ButtonDialougeWindow:Initialise('Error', 'An error occured while saving the file, try again.', 'Ok', nil, function(window, ok)
+			BttnDialougeWindow:Initialise('Error', 'An error occured while saving the file, try again.', 'Ok', nil, function(window, ok)
 				window:Close()
 			end):Show()
 		end
@@ -2325,7 +2325,7 @@ function SaveDocument()
 				elseif Current.Document.Format == TextFormatInkText then
 					extension = '.ink'
 				end
-				
+
 				if path:sub(-4) ~= extension then
 					path = path .. extension
 				end
@@ -2358,7 +2358,7 @@ function OpenDocument(path)
 	if h then
 		Current.Document = Document:Initialise(h.readAll(), RemoveExtension(fs.getName(path)), path)
 	else
-		ButtonDialougeWindow:Initialise('Error', 'An error occured while opening the file, try again.', 'Ok', nil, function(window, ok)
+		BttnDialougeWindow:Initialise('Error', 'An error occured while opening the file, try again.', 'Ok', nil, function(window, ok)
 			window:Close()
 			if Current.Document then
 				Current.TextInput = Current.Document.TextInput
@@ -2393,12 +2393,12 @@ OpenDocumentWindow = {
 	CursorPos = 1,
 	Visible = true,
 	Return = nil,
-	OpenButton = nil,
+	OpenBttn = nil,
 	PathTextBox = nil,
 	CurrentDirectory = '/',
 	Scroll = 0,
 	MaxScroll = 0,
-	GoUpButton = nil,
+	GoUpBttn = nil,
 	SelectedFile = '',
 	Files = {},
 	Typed = false,
@@ -2419,15 +2419,15 @@ OpenDocumentWindow = {
 		self:DrawFiles()
 
 		if (fs.exists(self.PathTextBox.TextInput.Value)) or (self.SelectedFile and #self.SelectedFile > 0 and fs.exists(self.CurrentDirectory .. self.SelectedFile)) then
-			self.OpenButton.TextColour = colours.black
+			self.OpenBttn.TextColour = colours.black
 		else
-			self.OpenButton.TextColour = colours.lightGrey
+			self.OpenBttn.TextColour = colours.lightGrey
 		end
 
 		self.PathTextBox:Draw()
-		self.OpenButton:Draw()
-		self.CancelButton:Draw()
-		self.GoUpButton:Draw()
+		self.OpenBttn:Draw()
+		self.CancelBttn:Draw()
+		self.GoUpBttn:Draw()
 	end,
 
 	DrawFiles = function(self)
@@ -2463,7 +2463,7 @@ OpenDocumentWindow = {
 		if OneOS and fs.exists('/Desktop/Documents/') then
 			new.CurrentDirectory = '/Desktop/Documents/'
 		end
-		new.OpenButton = Button:Initialise(new.Width - 6, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
+		new.OpenBttn = Bttn:Initialise(new.Width - 6, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
 			if fs.exists(new.PathTextBox.TextInput.Value) and self.TextColour == colours.black and not fs.isDir(new.PathTextBox.TextInput.Value) then
 				returnFunc(new, true, TidyPath(new.PathTextBox.TextInput.Value))
 			elseif new.SelectedFile and self.TextColour == colours.black and fs.isDir(new.CurrentDirectory .. new.SelectedFile) then
@@ -2472,10 +2472,10 @@ OpenDocumentWindow = {
 				returnFunc(new, true, TidyPath(new.CurrentDirectory .. '/' .. new.SelectedFile))
 			end
 		end, 'Open', colours.black)
-		new.CancelButton = Button:Initialise(new.Width - 15, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
+		new.CancelBttn = Bttn:Initialise(new.Width - 15, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
 			returnFunc(new, false)
 		end, 'Cancel', colours.black)
-		new.GoUpButton = Button:Initialise(2, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
+		new.GoUpBttn = Bttn:Initialise(2, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
 			local folderName = fs.getName(new.CurrentDirectory)
 			local parentDirectory = new.CurrentDirectory:sub(1, #new.CurrentDirectory-#folderName-1)
 			new:GoToDirectory(parentDirectory)
@@ -2526,7 +2526,7 @@ OpenDocumentWindow = {
 	end,
 
 	Click = function(self, side, x, y)
-		local items = {self.OpenButton, self.CancelButton, self.PathTextBox, self.GoUpButton}
+		local items = {self.OpenBttn, self.CancelBttn, self.PathTextBox, self.GoUpBttn}
 		local found = false
 		for i, v in ipairs(items) do
 			if CheckClick(v, x, y) then
@@ -2558,11 +2558,11 @@ PrintDocumentWindow = {
 	CursorPos = 1,
 	Visible = true,
 	Return = nil,
-	PrintButton = nil,
+	PrintBttn = nil,
 	CopiesTextBox = nil,
 	Scroll = 0,
 	MaxScroll = 0,
-	PrinterSelectButton = nil,
+	PrinterSelectBttn = nil,
 	Title = '',
 	Status = 0, --0 = neutral, 1 = good, -1 = error
 	StatusText = '',
@@ -2580,10 +2580,10 @@ PrintDocumentWindow = {
 		Drawing.DrawBlankArea(self.X, self.Y, self.Width, 1, colours.lightGrey)
 		Drawing.DrawBlankArea(self.X, self.Y+1, self.Width, self.Height-1, colours.white)
 		Drawing.DrawCharactersCenter(self.X, self.Y, self.Width, 1, self.Title, colours.black, colours.lightGrey)
-		
-		self.PrinterSelectButton:Draw()
-		Drawing.DrawCharactersCenter(self.X,  self.Y + self.PrinterSelectButton.Y - 2, self.Width, 1, 'Printer', colours.black, colours.white)
-		Drawing.DrawCharacters(self.X + self.Width - 3, self.Y + self.PrinterSelectButton.Y - 1, '\\/', colours.black, colours.lightGrey)
+
+		self.PrinterSelectBttn:Draw()
+		Drawing.DrawCharactersCenter(self.X,  self.Y + self.PrinterSelectBttn.Y - 2, self.Width, 1, 'Printer', colours.black, colours.white)
+		Drawing.DrawCharacters(self.X + self.Width - 3, self.Y + self.PrinterSelectBttn.Y - 1, '\\/', colours.black, colours.lightGrey)
 		Drawing.DrawCharacters(self.X + 1, self.Y + self.CopiesTextBox.Y - 1, 'Copies', colours.black, colours.white)
 		local statusColour = colours.grey
 		if self.Status == -1 then
@@ -2594,8 +2594,8 @@ PrintDocumentWindow = {
 		Drawing.DrawCharacters(self.X + 1, self.Y + self.CopiesTextBox.Y + 1, self.StatusText, statusColour, colours.white)
 
 		self.CopiesTextBox:Draw()
-		self.PrintButton:Draw()
-		self.CancelButton:Draw()
+		self.PrintBttn:Draw()
+		self.CancelBttn:Draw()
 	end,
 
 	Initialise = function(self)
@@ -2608,13 +2608,13 @@ PrintDocumentWindow = {
 		new.Y = math.ceil((Drawing.Screen.Height - new.Height) / 2)
 		new.Title = 'Print Document'
 		new.Visible = true
-		new.PrintButton = Button:Initialise(new.Width - 7, new.Height - 1, nil, nil, colours.lightGrey, new, function(self, side, x, y, toggle)
+		new.PrintBttn = Bttn:Initialise(new.Width - 7, new.Height - 1, nil, nil, colours.lightGrey, new, function(self, side, x, y, toggle)
 			local doPrint = true
 			if new.SelectedPrinter == nil then
 				local p = Peripheral.GetPeripheral('printer')
 				if p then
 					new.SelectedPrinter = p.Side
-					new.PrinterSelectButton.Text = p.Fullname
+					new.PrinterSelectBttn.Text = p.Fullname
 				else
 					new.StatusText = 'No Connected Printer'
 					new.Status = -1
@@ -2634,17 +2634,17 @@ PrintDocumentWindow = {
 				end
 			end
 		end, 'Print', colours.black)
-		new.CancelButton = Button:Initialise(new.Width - 15, new.Height - 1, nil, nil, colours.lightGrey, new, function(self, side, x, y, toggle)
+		new.CancelBttn = Bttn:Initialise(new.Width - 15, new.Height - 1, nil, nil, colours.lightGrey, new, function(self, side, x, y, toggle)
 			new:Close()
 			Draw()
 		end, 'Close', colours.black)
-		new.PrinterSelectButton = Button:Initialise(2, 4, new.Width - 2, nil, colours.lightGrey, new, function(self, side, x, y, toggle)
+		new.PrinterSelectBttn = Bttn:Initialise(2, 4, new.Width - 2, nil, colours.lightGrey, new, function(self, side, x, y, toggle)
 			local printers = {
 					{
 						Title = "Automatic",
 						Click = function()
 							new.SelectedPrinter = nil
-							new.PrinterSelectButton.Text = 'Automatic'
+							new.PrinterSelectBttn.Text = 'Automatic'
 						end
 					},
 					{
@@ -2656,7 +2656,7 @@ PrintDocumentWindow = {
 					Title = p.Fullname,
 					Click = function(self)
 						new.SelectedPrinter = p.Side
-						new.PrinterSelectButton.Text = p.Fullname
+						new.PrinterSelectBttn.Text = p.Fullname
 					end
 				})
 			end
@@ -2695,7 +2695,7 @@ PrintDocumentWindow = {
 	end,
 
 	Click = function(self, side, x, y)
-		local items = {self.PrintButton, self.CancelButton, self.CopiesTextBox, self.PrinterSelectButton}
+		local items = {self.PrintBttn, self.CancelBttn, self.CopiesTextBox, self.PrinterSelectBttn}
 		for i, v in ipairs(items) do
 			if CheckClick(v, x, y) then
 				v:Click(side, x, y)
@@ -2713,13 +2713,13 @@ SaveDocumentWindow = {
 	CursorPos = 1,
 	Visible = true,
 	Return = nil,
-	SaveButton = nil,
+	SaveBttn = nil,
 	PathTextBox = nil,
 	CurrentDirectory = '/',
 	Scroll = 0,
 	MaxScroll = 0,
 	ScrollBar = nil,
-	GoUpButton = nil,
+	GoUpBttn = nil,
 	Files = {},
 	Typed = false,
 
@@ -2740,15 +2740,15 @@ SaveDocumentWindow = {
 		self:DrawFiles()
 
 		if (self.PathTextBox.TextInput.Value) then
-			self.SaveButton.TextColour = colours.black
+			self.SaveBttn.TextColour = colours.black
 		else
-			self.SaveButton.TextColour = colours.lightGrey
+			self.SaveBttn.TextColour = colours.lightGrey
 		end
 
 		self.PathTextBox:Draw()
-		self.SaveButton:Draw()
-		self.CancelButton:Draw()
-		self.GoUpButton:Draw()
+		self.SaveBttn:Draw()
+		self.CancelBttn:Draw()
+		self.GoUpBttn:Draw()
 	end,
 
 	DrawFiles = function(self)
@@ -2783,24 +2783,24 @@ SaveDocumentWindow = {
 		if OneOS and fs.exists('/Desktop/Documents/') then
 			new.CurrentDirectory = '/Desktop/Documents/'
 		end
-		new.SaveButton = Button:Initialise(new.Width - 6, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
+		new.SaveBttn = Bttn:Initialise(new.Width - 6, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
 			if self.TextColour == colours.black and not fs.isDir(new.CurrentDirectory ..'/' .. new.PathTextBox.TextInput.Value) then
 				returnFunc(new, true, TidyPath(new.CurrentDirectory ..'/' .. new.PathTextBox.TextInput.Value))
 			elseif new.SelectedFile and self.TextColour == colours.black and fs.isDir(new.CurrentDirectory .. new.SelectedFile) then
 				new:GoToDirectory(new.CurrentDirectory .. new.SelectedFile)
 			end
 		end, 'Save', colours.black)
-		new.CancelButton = Button:Initialise(new.Width - 15, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
+		new.CancelBttn = Bttn:Initialise(new.Width - 15, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
 			returnFunc(new, false)
 		end, 'Cancel', colours.black)
-		new.GoUpButton = Button:Initialise(2, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
+		new.GoUpBttn = Bttn:Initialise(2, new.Height - 1, nil, nil, colours.white, new, function(self, side, x, y, toggle)
 			local folderName = fs.getName(new.CurrentDirectory)
 			local parentDirectory = new.CurrentDirectory:sub(1, #new.CurrentDirectory-#folderName-1)
 			new:GoToDirectory(parentDirectory)
 		end, 'Go Up', colours.black)
 		new.PathTextBox = TextBox:Initialise(2, new.Height - 3, new.Width - 2, 1, new, '', colours.white, colours.black, function(key)
 			if key == keys.enter then
-				new.SaveButton:Click()
+				new.SaveBttn:Click()
 			end
 		end)
 		new.PathTextBox.Placeholder = 'Document Name'
@@ -2848,7 +2848,7 @@ SaveDocumentWindow = {
 	end,
 
 	Click = function(self, side, x, y)
-		local items = {self.SaveButton, self.CancelButton, self.PathTextBox, self.GoUpButton}
+		local items = {self.SaveBttn, self.CancelBttn, self.PathTextBox, self.GoUpBttn}
 		local found = false
 		for i, v in ipairs(items) do
 			if CheckClick(v, x, y) then
@@ -2879,7 +2879,7 @@ local WrapText = function(text, maxWidth)
             end
             if space:find('\n') then
                     lines[#lines] = lines[#lines] .. word
-                    
+
                     space = space:gsub('\n', function()
                             table.insert(lines, '')
                             return ''
@@ -2891,15 +2891,15 @@ local WrapText = function(text, maxWidth)
 	return lines
 end
 
-ButtonDialougeWindow = {
+BttnDialougeWindow = {
 	X = 1,
 	Y = 1,
 	Width = 0,
 	Height = 0,
 	CursorPos = 1,
 	Visible = true,
-	CancelButton = nil,
-	OkButton = nil,
+	CancelBttn = nil,
+	OkBttn = nil,
 	Lines = {},
 
 	AbsolutePosition = function(self)
@@ -2919,9 +2919,9 @@ ButtonDialougeWindow = {
 			Drawing.DrawCharacters(self.X + 1, self.Y + 1 + i, text, colours.black, colours.white)
 		end
 
-		self.OkButton:Draw()
-		if self.CancelButton then
-			self.CancelButton:Draw()
+		self.OkBttn:Draw()
+		if self.CancelBttn then
+			self.CancelBttn:Draw()
 		end
 	end,
 
@@ -2937,11 +2937,11 @@ ButtonDialougeWindow = {
 		new.Title = title
 		new.Visible = true
 		new.Visible = true
-		new.OkButton = Button:Initialise(new.Width - #okText - 2, new.Height - 1, nil, 1, nil, new, function()
+		new.OkBttn = Bttn:Initialise(new.Width - #okText - 2, new.Height - 1, nil, 1, nil, new, function()
 			returnFunc(new, true)
 		end, okText)
 		if cancelText then
-			new.CancelButton = Button:Initialise(new.Width - #okText - 2 - 1 - #cancelText - 2, new.Height - 1, nil, 1, nil, new, function()
+			new.CancelBttn = Bttn:Initialise(new.Width - #okText - 2 - 1 - #cancelText - 2, new.Height - 1, nil, 1, nil, new, function()
 				returnFunc(new, false)
 			end, cancelText)
 		end
@@ -2974,7 +2974,7 @@ ButtonDialougeWindow = {
 	end,
 
 	Click = function(self, side, x, y)
-		local items = {self.OkButton, self.CancelButton}
+		local items = {self.OkBttn, self.CancelBttn}
 		local found = false
 		for i, v in ipairs(items) do
 			if CheckClick(v, x, y) then
@@ -2993,8 +2993,8 @@ TextDialougeWindow = {
 	Height = 0,
 	CursorPos = 1,
 	Visible = true,
-	CancelButton = nil,
-	OkButton = nil,
+	CancelBttn = nil,
+	OkBttn = nil,
 	Lines = {},
 	TextInput = nil,
 
@@ -3021,9 +3021,9 @@ TextDialougeWindow = {
 		Current.CursorPos = {self.X + 2 + self.TextInput.CursorPos, self.Y + self.Height - 4}
 		Current.CursorColour = colours.black
 
-		self.OkButton:Draw()
-		if self.CancelButton then
-			self.CancelButton:Draw()
+		self.OkBttn:Draw()
+		if self.CancelBttn then
+			self.CancelBttn:Draw()
 		end
 	end,
 
@@ -3039,19 +3039,19 @@ TextDialougeWindow = {
 		new.Title = title
 		new.Visible = true
 		new.Visible = true
-		new.OkButton = Button:Initialise(new.Width - #okText - 2, new.Height - 1, nil, 1, nil, new, function()
+		new.OkBttn = Bttn:Initialise(new.Width - #okText - 2, new.Height - 1, nil, 1, nil, new, function()
 			if #new.TextInput.Value > 0 then
 				returnFunc(new, true, new.TextInput.Value)
 			end
 		end, okText)
 		if cancelText then
-			new.CancelButton = Button:Initialise(new.Width - #okText - 2 - 1 - #cancelText - 2, new.Height - 1, nil, 1, nil, new, function()
+			new.CancelBttn = Bttn:Initialise(new.Width - #okText - 2 - 1 - #cancelText - 2, new.Height - 1, nil, 1, nil, new, function()
 				returnFunc(new, false)
 			end, cancelText)
 		end
 		new.TextInput = TextInput:Initialise('', function(enter)
 			if enter then
-				new.OkButton:Click()
+				new.OkBttn:Click()
 			end
 			Draw()
 		end, numerical)
@@ -3087,7 +3087,7 @@ TextDialougeWindow = {
 	end,
 
 	Click = function(self, side, x, y)
-		local items = {self.OkButton, self.CancelButton}
+		local items = {self.OkBttn, self.CancelBttn}
 		local found = false
 		for i, v in ipairs(items) do
 			if CheckClick(v, x, y) then
@@ -3117,6 +3117,8 @@ function DoVanillaClose()
 	term.setTextColour(colours.white)
 	PrintCentered("(c) oeed 2014", (Drawing.Screen.Height/2)+3)
 	term.setCursorPos(1, Drawing.Screen.Height)
+	sleep(1)
+	shell.run("/System/Main")
 	error('', 0)
 end
 
@@ -3127,7 +3129,7 @@ function Close()
 		end
 		return true
 	else
-		local _w = ButtonDialougeWindow:Initialise('Quit Ink?', 'You have unsaved changes, do you want to quit anyway?', 'Quit', 'Cancel', function(window, success)
+		local _w = BttnDialougeWindow:Initialise('Quit Ink?', 'You have unsaved changes, do you want to quit anyway?', 'Quit', 'Cancel', function(window, success)
 			if success then
 				if OneOS then
 					OneOS.Close(true)

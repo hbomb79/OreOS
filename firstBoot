@@ -1,0 +1,11 @@
+if not fs.exists("/.tpm/") then
+  print("OreOS First Boot")
+  textutils.slowPrint("Preparing OS...")
+  textutils.slowPrint("Installing Titanium Package Manager...")
+  shell.run("pastebin run 5B9k1jZg")
+else
+  print("OreOS First Boot")
+  textutils.slowPrint("Preparing OS...")
+  textutils.slowPrint("Installing Titanium...")
+  shell.run("tpm install Titanium")
+end

@@ -1,4 +1,5 @@
-if fs.exists("/README.md") then -- Checks for README.md file from github
-  fs.delete("/README.md") -- If the file exists it will be deleted.
+if not fs.exists("/.tpm/packages/Titanium/v0.1.0-beta.1") then
+  shell.run("/firstBoot")
+else
+  shell.run("/Boot/OreBoot") -- runs the boot manager
 end
-shell.run("/Boot/OreBoot") -- runs the boot manager
